@@ -1,0 +1,23 @@
+OBJS = dpflib.o rawusb.o scsi.o bootload.o
+
+BIN = testsg fwload bload
+
+all:	$(BIN)
+
+testsg:	libdpf.a testsg.c
+	cc -I../include -o testsg testsg.c -L. -lusb -ldpf
+
+fwload:	libdpf.a fwload.c
+	cc -I../include -o fwload fwload.c -L. -lusb -ldpf
+
+bload:	libdpf.a bootload.c
+	cc -I../include -DTEST -o bload bootload.c -L. -lusb -ldpf
+
+.c.o:
+	cc -I../include -c $<
+
+libdpf.a: $(OBJS)
+	ar ruv $@ $(OBJS)
+
+clean:
+	rm -rf *.o *.a $(BIN)
