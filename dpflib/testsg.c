@@ -14,7 +14,7 @@ int i, fd, size, offset;
 
 	ret = dpf_open("/dev/sga", &h);
 	flash_probe(h, id);
-	printf("%2d %2d %2d\n", id[0], id[1], id[2]);
+	printf("%2x %2x %2x\n", id[0], id[1], id[2]);
 	size = 1024 * 4;
 	buff = (unsigned char *)malloc(size);
 	fd = open("dumpfile", O_WRONLY|O_CREAT|O_TRUNC, 0666);
